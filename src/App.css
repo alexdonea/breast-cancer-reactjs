@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  margin: 15px 0px;
+}
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content {
+  padding: 20px 0px;
+  min-height: calc(100vh - 2 * 78px); /* Subtract header and footer heights */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.header,
+.footer {
+  padding: 20px;
+  max-width: 1400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header {
+  border-bottom: solid 1px lightgray;
+}
+.footer {
+  border-top: solid 1px lightgray;
+}
+
+.main-wrapper-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: flex-start;
+}
+
+.controllers-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
+.log-textarea {
+  width: 70%;
+  padding: 0.6rem;
+  min-height: 400px;
+  resize: none;
+  outline: none;
+  border: solid 1px lightgray;
+}
+
+button {
+  width: 100px;
+  margin-bottom: 15px;
+}
