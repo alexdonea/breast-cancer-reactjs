@@ -52,8 +52,12 @@ const neuralNetwork = {
       validationSplit: 0.2,
       callbacks: {
         onEpochEnd: (epoch, logs) => {
-          updateTerminalCallback(`Epoch ${epoch + 1}: loss = ${logs.loss.toFixed(4)}, accuracy = ${logs.acc.toFixed(4)}`);
-        }
+          updateTerminalCallback(
+            `Epoch ${epoch + 1}: loss = ${logs.loss.toFixed(
+              4
+            )}, accuracy = ${logs.acc.toFixed(4)}`
+          );
+        },
       },
       verbose: 0,
     });
@@ -72,23 +76,23 @@ const neuralNetwork = {
 
   loadModel: async () => {
     try {
-    const model = await tf.loadLayersModel(
-      "localstorage://breast-cancer-model"
-    );
-    return model ? true : null;
-    } catch(e) {
+      const model = await tf.loadLayersModel(
+        "localstorage://breast-cancer-model"
+      );
+      return model ? true : null;
+    } catch (e) {
       return null;
     }
   },
 
   predict: async (updateTerminalCallback) => {
     try {
-    const model = await tf.loadLayersModel(
-      "localstorage://breast-cancer-model");
+      const model = await tf.loadLayersModel(
+        "localstorage://breast-cancer-model"
+      );
       const xTestData = prepareInputData(test);
       const yTestData = prepareOutputData(test);
-    
-  
+
       tf.tidy(() => {
         const output = model.predict(xTestData);
         const predictions = Array.from(output.dataSync());
@@ -96,29 +100,31 @@ const neuralNetwork = {
           wrong = 0,
           total = 0;
         const yTestValues = Array.from(yTestData.dataSync());
-  
+
         predictions.forEach((value, index) => {
           total++;
           const diagnosis = yTestValues[index] === 1 ? "Malignant" : "Benign";
           const prediction = value > 0.5 ? "Malignant" : "Benign";
-  
+
           if (diagnosis === prediction) {
             correct++;
           } else {
             wrong++;
           }
-  
+
           updateTerminalCallback(
             `Test data [${index}] id[${yTestValues[index]}] Predict = ${prediction},  Test diagnosis = ${diagnosis}`
           );
         });
-  
+
         updateTerminalCallback(
           `Correct=${correct}, Wrong=${wrong}, Total=${total}`
         );
       });
-    } catch(e) {
-      updateTerminalCallback("No model breast-cancer-model was found in localStorage. Train and then save model to localStorage");
+    } catch (e) {
+      updateTerminalCallback(
+        "No model breast-cancer-model was found in localStorage. Train and then save model to localStorage"
+      );
       return;
     }
   },
